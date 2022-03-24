@@ -56,6 +56,7 @@ def main():
         lane5truck = Truck((i+1)*7-5, constants.LANE_5, constants.TRUCK_LENGTH,Point(-15, 0))
         cast.add_actor("trucks", lane5truck)
 
+    # Create Helpers
     # lane 6
     for i in range (3):
         lane6turtle = Turtle((i+1)*7-5, constants.LANE_6, constants.LG_TURTLE_LENGTH,Point(-10, 0))

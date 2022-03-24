@@ -36,9 +36,6 @@ class DrawActorsAction(Action):
         logs = cast.get_actors("logs")
         messages = cast.get_actors("messages")
             
-
-
-
         self._video_service.clear_buffer()
         self._video_service.draw_actor(frog)
         self._video_service.draw_actor(score)

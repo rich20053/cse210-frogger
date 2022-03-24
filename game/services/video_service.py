@@ -24,6 +24,7 @@ class VideoService:
         the beginning of the game's output phase.
         """
         pyray.begin_drawing()
+        # Color screen background
         pyray.clear_background(pyray.BLACK)
         pyray.draw_rectangle(0, 2 * constants.CELL_SIZE, constants.MAX_X, 5 * constants.CELL_SIZE, pyray.BLUE)
         pyray.draw_rectangle(0, 0, constants.MAX_X, 2 * constants.CELL_SIZE, pyray.BROWN)
@@ -43,9 +44,6 @@ class VideoService:
         y = actor.get_position().get_y()
         font_size = actor.get_font_size()
         color = actor.get_color().to_tuple()
-
-        '''string = text + "," + str(x) + "," + str(y) + "," + str(font_size)
-        print(string)'''
 
         if centered:
             width = pyray.measure_text(text, font_size)
@@ -95,5 +93,6 @@ class VideoService:
             pyray.draw_line(x, 0, x, constants.MAX_Y, pyray.GRAY)
     
     def _get_x_offset(self, text, font_size):
+        """Provide the x offsett"""
         width = pyray.measure_text(text, font_size)
         return int(width / 2)

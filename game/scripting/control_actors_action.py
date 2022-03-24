@@ -42,19 +42,5 @@ class ControlActorsAction(Action):
                 frog.set_velocity(velocity)
         else:
             frog.set_velocity(velocity)
-    
 
-        '''
-        # Signal new game
-        if self._keyboard_service.is_key_down('n'):
-            collision = script.get_first_action("check")
-            collision.start_new_game()
-            all_messages = cast.get_actors("messages")
-            for message in all_messages:
-                cast.remove_actor("messages", message)
-            score = cast.get_first_actor("score")
-            cast.remove_actor("score", score)
-            cast.add_actor("score", Score())
-            
-            self._new_game = False'''
             

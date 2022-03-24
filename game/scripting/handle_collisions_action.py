@@ -30,7 +30,8 @@ class HandleCollisionsAction(Action):
             self._handle_game_over(cast)
 
     def _handle_segment_collision(self, cast):
-        """Sets the game over flag if the palyer collides with one of segments of other player.
+        """Identifies when two actors come into contact with each other and handle it appropriately.
+           If it is a hazzard, the frog dies, if it is a helper, the frog rides safely
         
         Args:
             cast (Cast): The cast of Actors in the game.
@@ -42,6 +43,7 @@ class HandleCollisionsAction(Action):
         logs = cast.get_actors("logs")
         turtles = cast.get_actors("turtles")
         
+        # Test for car collision
         for car in cars:
             carsegs = car.get_segments()
             first_x = carsegs[0].get_position().get_x()
@@ -52,6 +54,7 @@ class HandleCollisionsAction(Action):
                     self._is_game_over = True
                     frog.set_text("*")
         
+        # Test for truck collision
         for truck in trucks:
             trucksegs = truck.get_segments()
             first_x = trucksegs[0].get_position().get_x()
@@ -62,10 +65,12 @@ class HandleCollisionsAction(Action):
                     self._is_game_over = True
                     frog.set_text("*")
         
+        # If the frog is in the top half of the screen, the frog dies if not in contact (collision) with a Helper
         if (frog.get_position().get_y() + 1 < 7 * constants.CELL_SIZE and
             frog.get_position().get_y() + 1 > 1 * constants.CELL_SIZE):
             self._is_game_over = True
 
+            # Frog in contact with a Log
             for log in logs:
                 logsegs = log.get_segments()
                 first_x = logsegs[0].get_position().get_x()
@@ -77,7 +82,7 @@ class HandleCollisionsAction(Action):
                         frog.set_velocity(logsegs[0].get_velocity())
                         frog.set_on_log_or_turtle()
 
-        
+            # Frog in contact with a turtle
             for turtle in turtles:
                 turtlesegs = turtle.get_segments()
                 first_x = turtlesegs[0].get_position().get_x()
@@ -92,39 +97,9 @@ class HandleCollisionsAction(Action):
 
             if (self._is_game_over == True):
                 frog.set_text("*")
-
-            '''
-            for log in logs:
-                logsegs = log.get_segments()
-                first_x = logsegs[0].get_position().get_x()
-                last_x = logsegs[len(logsegs)-1].get_position().get_x()
-                if (frog.get_position().get_x()+20 >= first_x and
-                    frog.get_position().get_x()-20 <= last_x and
-                    frog.get_position().get_y() + 1 == logsegs[0].get_position().get_y()):
-                        frog.set_velocity(logsegs[0].get_velocity())
-                        frog.set_on_log_or_turtle()
-                        print("on log")
-                else:
-                    frog.set_off_log_or_turtle()
-
-        
-            for turtle in turtles:
-                turtlesegs = turtle.get_segments()
-                first_x = turtlesegs[0].get_position().get_x()
-                last_x = turtlesegs[len(turtlesegs)-1].get_position().get_x()
-                if (frog.get_position().get_x()+20 >= first_x and
-                    frog.get_position().get_x()-20 <= last_x and
-                    frog.get_position().get_y() + 1 == turtlesegs[0].get_position().get_y()):
-                        frog.set_velocity_and_move(turtlesegs[0].get_velocity())
-                        frog.set_on_log_or_turtle()
-                        print("on turtle velocity")
-                        print(turtlesegs[0].get_velocity().get_y())
-                else:
-                    frog.set_off_log_or_turtle()'''
-
         
     def _handle_game_over(self, cast):
-        """Shows the 'game over' message if a player collides with their opponent's trail.
+        """Shows the 'game over' message if the frog dies.
         
         Args:
             cast (Cast): The cast of Actors in the game.
@@ -145,12 +120,3 @@ class HandleCollisionsAction(Action):
             score.game_over()
             frog = cast.get_first_actor("frog")
             frog.set_game_over()
-
-'''   
-    def start_new_game(self):
-        """Resets 'game over' to restart the game.
-        
-        Args:
-            none.
-        """
-        self._is_game_over = False'''

@@ -5,9 +5,9 @@ from game.shared.point import Point
 
 class Boundary(Actor):
     """
-    Try not to run into this item.
+    The boudary objects appear on the screen to show where the frog is safe.
     
-    The responsibility of Obstacle is to select a random position and set it up as another way for a cycle to lose a game.
+    The frog cannot die when sitting on a boundary
 
     Attributes:
         None.

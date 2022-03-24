@@ -5,9 +5,9 @@ from game.shared.point import Point
 
 class Score(Actor):
     """
-    A record of points made or lost. 
+    A record of points made. 
     
-    The responsibility of Score is to keep track of the points the player has earned by eating food.
+    The responsibility of Score is to keep track of the points the player has earned by crossing the scren successfully.
     It contains methods for adding and getting points. Client should use get_text() to get a string 
     representation of the points earned.
 
@@ -35,4 +35,5 @@ class Score(Actor):
             self.set_text(f"Score: {self._points}")
 
     def game_over(self):
+        """ Sets the game over attribute and prevents scoring after the game ends"""
         self._game_is_over = True
