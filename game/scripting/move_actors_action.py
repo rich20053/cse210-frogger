@@ -1,6 +1,6 @@
 from game.scripting.action import Action
 from game.shared.point import Point
-PACE = 5   #  How fast the snake will move - move once every 5 cycles
+PACE = 6   #  How fast the snake will move - move once every 5 cycles
 FROGPACE = 5 #  How fast the snake will grow - grow once every 25 cycles
 
 
