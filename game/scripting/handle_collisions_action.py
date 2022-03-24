@@ -74,7 +74,7 @@ class HandleCollisionsAction(Action):
                     frog.get_position().get_x()-20 <= last_x and
                     frog.get_position().get_y() + 1 == logsegs[0].get_position().get_y()):
                         self._is_game_over = False
-                        frog.set_velocity_and_move(logsegs[0].get_velocity())
+                        frog.set_velocity(logsegs[0].get_velocity())
                         frog.set_on_log_or_turtle()
 
         
@@ -86,7 +86,7 @@ class HandleCollisionsAction(Action):
                     frog.get_position().get_x()-20 <= last_x and
                     frog.get_position().get_y() + 1 == turtlesegs[0].get_position().get_y()):
                         self._is_game_over = False
-                        frog.set_velocity_and_move(turtlesegs[0].get_velocity())
+                        frog.set_velocity(turtlesegs[0].get_velocity())
                         frog.set_on_log_or_turtle()
                     
 

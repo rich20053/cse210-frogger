@@ -59,7 +59,7 @@ class Frog(Actor):
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
-
+    '''    
     def set_velocity_and_move(self, velocity):
         """Updates the velocity to the given one.
         
@@ -69,8 +69,8 @@ class Frog(Actor):
         old_velocity = self._velocity.get_y()
         self._velocity = velocity
         new_velocity = self._velocity.get_y()
-        if (old_velocity != new_velocity):
-            self.move_next()
+        #if (old_velocity != new_velocity):
+        #    self.move_next()'''
     
     def set_on_log_or_turtle(self):
         self._on_log_or_turtle = True
