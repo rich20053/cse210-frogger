@@ -1,60 +1,49 @@
 import pyray
-from raylib import KEY_FIVE, KEY_FOUR, KEY_ONE, KEY_THREE, KEY_TWO
 from game.shared.point import Point
-
 
 class KeyboardService:
     """Detects player input. 
     
-    The responsibility of a KeyboardService is to indicate whether or not a key is up or down.
+    The responsibility of a KeyboardService is to detect player key presses and translate them into 
+    a point representing a direction.
 
     Attributes:
-        _keys (Dict[string, int]): The letter to key mapping.
+        cell_size (int): For scaling directional input to a grid.
     """
 
-    def __init__(self):
-        """Constructs a new KeyboardService."""
-        self._keys = {}
-        
-        self._keys['w'] = pyray.KEY_W
-        self._keys['a'] = pyray.KEY_A
-        self._keys['s'] = pyray.KEY_S
-        self._keys['d'] = pyray.KEY_D
-
-        self._keys['i'] = pyray.KEY_I
-        self._keys['j'] = pyray.KEY_J
-        self._keys['k'] = pyray.KEY_K
-        self._keys['l'] = pyray.KEY_L
-
-        self._keys['n'] = pyray.KEY_N
-
-        self._keys['1'] = KEY_ONE
-        self._keys['2'] = KEY_TWO
-        self._keys['3'] = KEY_THREE
-        self._keys['4'] = KEY_FOUR
-        self._keys['5'] = KEY_FIVE
-
-
-
-    def is_key_up(self, key):
-        """Checks if the given key is currently up.
+    def __init__(self, cell_size = 40):
+        """Constructs a new KeyboardService using the specified cell size.
         
         Args:
-            key (string): The given key (w, a, s, d or i, j, k, l or n)
+            cell_size (int): The size of a cell in the display grid.
         """
-        if (key.isdigit()):
-            return pyray.is_key_up(self._keys[key])
-        pyray_key = self._keys[key]
-        return pyray.is_key_up(pyray_key)
+        self._cell_size = cell_size
+        self._last_key = pyray.KEY_A
+        self._last_key_down = False
 
-    def is_key_down(self, key):
-        """Checks if the given key is currently down.
-        
-        Args:
-            key (string): The given key (w, a, s, d or i, j, k, l or n)
+    def get_direction(self):
+        """Gets the selected direction based on the currently pressed keys.
+
+        Returns:
+            Point: The selected direction.
         """
-        if (key.isdigit()):
-            return pyray.is_key_down(self._keys[key])
-        pyray_key = self._keys[key]
-        return pyray.is_key_down(pyray_key)
+        dx = 0
+        dy = 0
+
+        if pyray.is_key_down(pyray.KEY_LEFT):
+            dx = -1
+         
+        if pyray.is_key_down(pyray.KEY_RIGHT):
+            dx = 1
+        
+        if pyray.is_key_down(pyray.KEY_UP):
+            dy = -1
             
+        if pyray.is_key_down(pyray.KEY_DOWN):
+            dy = 1
+        
+        
+        direction = Point(dx, dy)
+        direction = direction.scale(self._cell_size)
+        
+        return direction

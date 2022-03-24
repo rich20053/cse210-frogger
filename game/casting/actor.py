@@ -20,7 +20,7 @@ class Actor:
     def __init__(self):
         """Constructs a new Actor."""
         self._text = ""
-        self._font_size = 15
+        self._font_size = 40
         self._color = Color(255, 255, 255)
         self._position = Point(0, 0)
         self._velocity = Point(0, 0)
@@ -72,6 +72,7 @@ class Actor:
         """
         x = (self._position.get_x() + self._velocity.get_x()) % constants.MAX_X
         y = (self._position.get_y() + self._velocity.get_y()) % constants.MAX_Y
+        
         self._position = Point(x, y)
 
     def set_color(self, color):

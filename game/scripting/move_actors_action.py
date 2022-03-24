@@ -1,7 +1,7 @@
 from game.scripting.action import Action
 from game.shared.point import Point
-PACE = 5    #  How fast the snake will move - move once every 5 cycles
-GROWTH = 5 #  How fast the snake will grow - grow once every 25 cycles
+PACE = 5   #  How fast the snake will move - move once every 5 cycles
+FROGPACE = 5 #  How fast the snake will grow - grow once every 25 cycles
 
 
 class MoveActorsAction(Action):
@@ -15,11 +15,11 @@ class MoveActorsAction(Action):
         """
         contructor sets the initial speed of moving
         """
-        self.pace = PACE
-        self.speed = self.pace
-        self.growth = GROWTH
-        self.growth_speed = self.growth
-
+        self._pace = PACE
+        self._speed = self._pace
+        self._frogpace = FROGPACE
+        self._frogspeed = self._frogpace
+        
     def execute (self, cast, script):
         """Executes the move actors action.
 
@@ -32,27 +32,32 @@ class MoveActorsAction(Action):
             cast (Cast): The cast of Actors in the game.
             script (Script): The script of Actions in the game.
         """
-        lscore = cast.get_first_actor("lscore")
-        rscore = cast.get_first_actor("rscore")
-        lcycle = cast.get_first_actor("lcycle")
-        rcycle = cast.get_first_actor("rcycle")
-        all_actors = cast.get_all_actors()
-        self.speed -= 1
-        if self.speed == 0:
-            self.speed = self.pace
-            for actor in all_actors:
-                actor.move_next()
-        self.growth_speed -= 1
-        if self.growth_speed == 0:
-            self.growth_speed = self.growth
-            if not rcycle.is_game_over:
-                rscore.add_points(1)
-            rcycle.grow_tail(1)
-            if not lcycle.is_game_over:
-                lscore.add_points(1)
-            lcycle.grow_tail(1)    
+        frog = cast.get_first_actor("frog")
+        score = cast.get_first_actor("score")
+        score.add_points(frog.get_score())
+        self._speed -= 1
+        if self._speed == 0:
+            self._speed = self._pace
+            cars = cast.get_actors("cars")
+            for car in cars:
+                car.move_next()
+            trucks = cast.get_actors("trucks")
+            for truck in trucks:
+                truck.move_next()
+            turtles = cast.get_actors("turtles")
+            for turtle in turtles:
+                turtle.move_next()
+            logs = cast.get_actors("logs")
+            for log in logs:
+                log.move_next()
+            #self._frogspeed -= 1
+            #if self._frogspeed == 0:
+            #self._frogspeed = self._frogpace
+            frog.move_next()
+        
 
     def set_speed (self, speed):
         self.pace = speed
         self.growth = speed
+
         

@@ -24,10 +24,12 @@ class Director:
         """
         self._video_service.open_window()
         while self._video_service.is_window_open():
+            #print("cycle")
             self._execute_actions("input", cast, script)
             self._execute_actions("update", cast, script)
             self._execute_actions("check", cast, script)
             self._execute_actions("output", cast, script)
+
         self._video_service.close_window()
 
     def _execute_actions(self, group, cast, script):

@@ -25,6 +25,10 @@ class VideoService:
         """
         pyray.begin_drawing()
         pyray.clear_background(pyray.BLACK)
+        pyray.draw_rectangle(0, 2 * constants.CELL_SIZE, constants.MAX_X, 5 * constants.CELL_SIZE, pyray.BLUE)
+        pyray.draw_rectangle(0, 0, constants.MAX_X, 2 * constants.CELL_SIZE, pyray.BROWN)
+        pyray.draw_rectangle(0, 7 * constants.CELL_SIZE, constants.MAX_X, constants.CELL_SIZE, pyray.BROWN)
+        pyray.draw_rectangle(0, 13 * constants.CELL_SIZE, constants.MAX_X, 2 * constants.CELL_SIZE, pyray.BROWN)
         if self._debug == True:
             self._draw_grid()
     
@@ -40,11 +44,14 @@ class VideoService:
         font_size = actor.get_font_size()
         color = actor.get_color().to_tuple()
 
+        '''string = text + "," + str(x) + "," + str(y) + "," + str(font_size)
+        print(string)'''
+
         if centered:
             width = pyray.measure_text(text, font_size)
             offset = int(width / 2)
             x -= offset
-            
+
         pyray.draw_text(text, x, y, font_size, color)
         
     def draw_actors(self, actors, centered=False):
