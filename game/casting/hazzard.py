@@ -69,11 +69,8 @@ class Hazzard(Actor):
         """
         Builds the cycle's segment list.
         
-        Based on the CYCLE_LENGTH constant
+        Based on the *_LENGTH constant passed as an argument
 
-        
-        x = self.get_cycle_x_start()
-        y = self.get_cycle_y_start()
         """
         for i in range(self._length):
             position = Point((x + i) * constants.CELL_SIZE, y * constants.CELL_SIZE)
